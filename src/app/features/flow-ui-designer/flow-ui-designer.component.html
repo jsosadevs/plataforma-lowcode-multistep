@@ -1,0 +1,65 @@
+<!--
+  Contenedor principal del diseñador.
+  Solo se renderiza si hay un flujo local en el estado.
+-->
+<div *ngIf="state.localFlow" class="designer-container">
+
+  <!-- Cabecera con el título y los botones de acción -->
+  <header class="designer-header">
+    <h1>Diseñador de UI: {{ state.localFlow.name }}</h1>
+    <div class="action-buttons">
+      <button mat-stroked-button (click)="onResetChanges()">Resetear Cambios</button>
+      <button mat-flat-button color="primary" (click)="onSaveChanges()" [disabled]="!state.isDirty">
+        Guardar Cambios
+      </button>
+    </div>
+  </header>
+
+  <!-- Cuerpo principal del diseñador, dividido en configuración y vista previa -->
+  <main class="designer-body">
+
+    <!-- Panel de Configuración con Pestañas -->
+    <div class="config-panel">
+      <mat-tab-group (selectedTabChange)="onTabChange($event.tab.textLabel)" [selectedIndex]="0">
+
+        <mat-tab label="Plantillas">
+          <ng-template matTabContent>
+            <!-- El contenido del componente de plantillas irá aquí -->
+            <p>Contenido de la pestaña de Plantillas.</p>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Configuración del Flujo">
+          <ng-template matTabContent>
+            <!-- El contenido del componente de configuración de flujo irá aquí -->
+            <p>Contenido de la pestaña de Configuración del Flujo.</p>
+          </ng-template>
+        </mat-tab>
+
+        <mat-tab label="Configuración de Pasos">
+          <ng-template matTabContent>
+            <!-- El contenido del componente de configuración de pasos irá aquí -->
+            <p>Contenido de la pestaña de Configuración de Pasos.</p>
+          </ng-template>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+
+    <!-- Panel de Vista Previa -->
+    <div class="preview-panel" *ngIf="state.showPreviewPane">
+      <h2>Vista Previa</h2>
+      <!-- El componente de vista previa irá aquí -->
+      <div class="preview-content">
+        <p>La vista previa en vivo del flujo se mostrará aquí.</p>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<!-- Mensaje de carga o estado inicial si no hay flujo -->
+<div *ngIf="!state.localFlow">
+  <p>Cargando diseñador...</p>
+</div>
