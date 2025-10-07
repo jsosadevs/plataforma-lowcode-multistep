@@ -15,7 +15,7 @@ export interface DatabaseTrigger {
   conditions?: {
     field: string;
     operator: 'equals' | 'not_equals' | 'greater_than' | 'less_than' | 'contains';
-    value: any;
+    value: unknown;
   }[];
   debounceMs?: number; // Prevent rapid firing
 }
@@ -168,22 +168,6 @@ export interface FlowStep {
   queryChain?: QueryChainAction[];
   allowBack?: boolean;
   allowSkip?: boolean;
-  // Enhanced detailed information
-  helpText?: string;
-  estimatedTime?: string;
-  requirements?: string[];
-  tips?: string[];
-  warnings?: string[];
-  // Custom info area enhancements
-  objectives?: string[];
-  keyPoints?: string[];
-  examples?: string[];
-  bestPractices?: string[];
-  commonMistakes?: string[];
-  relatedSteps?: string[];
-  tags?: string[];
-  difficulty?: 'easy' | 'medium' | 'hard';
-  prerequisites?: string[];
   customInfo?: {
     enabled?: boolean;
     objectives?: string[];
@@ -196,6 +180,11 @@ export interface FlowStep {
     estimatedDuration?: string;
     difficulty?: 'easy' | 'medium' | 'hard';
     prerequisites?: string[];
+    helpText?: string;
+    estimatedTime?: string;
+    requirements?: string[];
+    tips?: string[];
+    warnings?: string[];
   };
   // UI Configuration
   uiConfig?: StepUIConfig;

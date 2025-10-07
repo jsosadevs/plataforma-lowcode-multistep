@@ -34,18 +34,18 @@ const MOCK_FLOWS: Flow[] = [
         id: 'personal-info',
         name: 'Personal Information',
         description: 'Please enter your personal details.',
-        helpText: 'This information will be used to create your user account and profile. All fields marked with an asterisk (*) are required.',
-        estimatedTime: '2-3 minutes',
-        requirements: [
-          'Legal name as it appears on official documents',
-          'Active email address that you check regularly'
-        ],
-        tips: [
-          'Use a professional email address if this is for work',
-          'Double-check your email address for accuracy'
-        ],
         // Enhanced step-level custom info
         customInfo: {
+          helpText: 'This information will be used to create your user account and profile. All fields marked with an asterisk (*) are required.',
+          estimatedTime: '2-3 minutes',
+          requirements: [
+            'Legal name as it appears on official documents',
+            'Active email address that you check regularly'
+          ],
+          tips: [
+            'Use a professional email address if this is for work',
+            'Double-check your email address for accuracy'
+          ],
           enabled: true,
           objectives: [
             'Collect accurate personal identification information',
@@ -106,25 +106,25 @@ const MOCK_FLOWS: Flow[] = [
         id: 'password-setup',
         name: 'Password Setup',
         description: 'Choose a secure password.',
-        helpText: 'A strong password is essential for protecting your account. Follow the guidelines below to create a secure password.',
-        estimatedTime: '1-2 minutes',
-        requirements: [
-          'Minimum 8 characters in length',
-          'At least one uppercase letter',
-          'At least one lowercase letter',
-          'At least one number'
-        ],
-        tips: [
-          'Avoid using personal information like birthdays or names',
-          'Consider using a passphrase with multiple words',
-          'Use a password manager to generate and store complex passwords'
-        ],
-        warnings: [
-          'Never share your password with anyone',
-          'Avoid using the same password for multiple accounts'
-        ],
         // Enhanced security-focused custom info
         customInfo: {
+          helpText: 'A strong password is essential for protecting your account. Follow the guidelines below to create a secure password.',
+          estimatedTime: '1-2 minutes',
+          requirements: [
+            'Minimum 8 characters in length',
+            'At least one uppercase letter',
+            'At least one lowercase letter',
+            'At least one number'
+          ],
+          tips: [
+            'Avoid using personal information like birthdays or names',
+            'Consider using a passphrase with multiple words',
+            'Use a password manager to generate and store complex passwords'
+          ],
+          warnings: [
+            'Never share your password with anyone',
+            'Avoid using the same password for multiple accounts'
+          ],
           enabled: true,
           objectives: [
             'Create a strong, secure password that protects your account',
@@ -418,19 +418,19 @@ const MOCK_FLOWS: Flow[] = [
         id: 'program-selection',
         name: 'Program Selection',
         description: 'Choose the faculty, career, and level for the student.',
-        helpText: 'Select the appropriate academic program details. These selections will determine the available courses and requirements for the student.',
-        estimatedTime: '3-5 minutes',
-        requirements: [
-          'Verify the student meets admission requirements for the selected program',
-          'Confirm availability in the chosen faculty and career path'
-        ],
-        tips: [
-          'Faculty selection affects available career options',
-          'Career selection determines available academic levels',
-          'Contact admissions office if unsure about program requirements'
-        ],
         // Technical step with cascading data dependencies
         customInfo: {
+          helpText: 'Select the appropriate academic program details. These selections will determine the available courses and requirements for the student.',
+          estimatedTime: '3-5 minutes',
+          requirements: [
+            'Verify the student meets admission requirements for the selected program',
+            'Confirm availability in the chosen faculty and career path'
+          ],
+          tips: [
+            'Faculty selection affects available career options',
+            'Career selection determines available academic levels',
+            'Contact admissions office if unsure about program requirements'
+          ],
           enabled: true,
           objectives: [
             'Select appropriate academic faculty for student enrollment',

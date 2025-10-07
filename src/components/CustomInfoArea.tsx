@@ -44,17 +44,17 @@ export const CustomInfoArea: React.FC<CustomInfoAreaProps> = ({
 
   // Enhanced step-focused information with fallbacks
   const stepInfo = {
-    objectives: customInfoConfig.objectives || step.objectives || [],
-    keyPoints: customInfoConfig.keyPoints || step.keyPoints || [],
-    examples: customInfoConfig.examples || step.examples || [],
-    bestPractices: customInfoConfig.bestPractices || step.bestPractices || [],
-    commonMistakes: customInfoConfig.commonMistakes || step.commonMistakes || [],
-    relatedSteps: customInfoConfig.relatedSteps || step.relatedSteps || [],
+    objectives: customInfoConfig.objectives || [],
+    keyPoints: customInfoConfig.keyPoints || [],
+    examples: customInfoConfig.examples || [],
+    bestPractices: customInfoConfig.bestPractices || [],
+    commonMistakes: customInfoConfig.commonMistakes || [],
+    relatedSteps: customInfoConfig.relatedSteps || [],
     // Enhanced information
-    tags: customInfoConfig.tags || step.tags || [],
-    estimatedDuration: step.estimatedTime || customInfoConfig.estimatedDuration,
-    difficulty: customInfoConfig.difficulty || step.difficulty || 'medium',
-    prerequisites: customInfoConfig.prerequisites || step.prerequisites || []
+    tags: customInfoConfig.tags || [],
+    estimatedDuration: customInfoConfig.estimatedTime || customInfoConfig.estimatedDuration,
+    difficulty: customInfoConfig.difficulty || 'medium',
+    prerequisites: customInfoConfig.prerequisites || []
   };
 
   // Enhanced input-focused information with auto-generated content

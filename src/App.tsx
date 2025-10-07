@@ -10,6 +10,7 @@ import { Badge } from './components/ui/badge';
 import { useFlowService } from './hooks/useFlowService';
 import { useQueryManager } from './hooks/useQueryManager';
 import { useAutomatedFlows } from './hooks/useAutomatedFlows';
+import { useFlowRunner } from './hooks/useFlowRunner';
 import { Play, Settings, Database, Workflow, Eye, FileText, Briefcase, Zap } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { ActionButtons, useCommonActions } from './components/ActionButtons';
@@ -17,27 +18,24 @@ import { AutomatedFlowsManager } from './components/AutomatedFlowsManager';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('overview');
-  const [runningFlowId, setRunningFlowId] = useState<string | null>(null);
-  const [flowExecutionContext, setFlowExecutionContext] = useState<'certificates' | 'backoffice' | 'flows' | null>(null);
   const { flowGroups, flows } = useFlowService();
   const { queries } = useQueryManager();
   const { createRunAction, createViewAction } = useCommonActions();
   const { automatedFlows, getActiveFlows } = useAutomatedFlows();
 
-  const handlePreviewFlow = (flowId: string, context?: 'certificates' | 'backoffice' | 'flows') => {
-    setRunningFlowId(flowId);
-    setFlowExecutionContext(context || activeTab as any);
-  };
-
-  const handleCloseRunner = () => {
-    setRunningFlowId(null);
-    setFlowExecutionContext(null);
-  };
-
-  const handleFlowComplete = (flowData: any) => {
-    console.log('Flow completed with data:', flowData);
-    // Here you could send data to a backend, show a success message, etc.
-  };
+  const {
+    runFlow,
+    closeRunner,
+    handleComplete,
+    isRunning,
+    runningFlowId,
+    flowExecutionContext,
+  } = useFlowRunner({
+    onComplete: (flowData: any) => {
+      console.log('Flow completed with data:', flowData);
+      // Here you could send data to a backend, show a success message, etc.
+    },
+  });
 
   const renderOverview = () => (
     <div className="space-y-6">
@@ -295,8 +293,8 @@ export default function App() {
                         )}
 
                         <div className="flex gap-2 pt-2">
-                          <Button 
-                            onClick={() => handlePreviewFlow(flow.id, 'flows')}
+                          <Button
+                            onClick={() => runFlow(flow.id, 'flows')}
                             className="flex-1"
                             disabled={flow.steps.length === 0}
                           >
@@ -321,8 +319,8 @@ export default function App() {
                 <Workflow className="w-12 h-12 mx-auto mb-4 opacity-50" />
                 <p>No flows created in this group yet</p>
                 <p className="text-sm mt-1">
-                  <Button 
-                    variant="link" 
+                  <Button
+                    variant="link"
                     className="p-0 h-auto"
                     onClick={() => setActiveTab('backoffice')}
                   >
@@ -341,8 +339,8 @@ export default function App() {
             <Briefcase className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <p>No flow groups found</p>
             <p className="text-sm mt-1">
-              <Button 
-                variant="link" 
+              <Button
+                variant="link"
                 className="p-0 h-auto"
                 onClick={() => setActiveTab('backoffice')}
               >
@@ -394,7 +392,7 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="certificates">
-            <CertificatesDashboard onRunFlow={(flowId) => handlePreviewFlow(flowId, 'certificates')} />
+            <CertificatesDashboard onRunFlow={(flowId) => runFlow(flowId, 'certificates')} />
           </TabsContent>
 
           <TabsContent value="flows">
@@ -402,20 +400,20 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="automated">
-            <AutomatedFlowsManager onPreviewFlow={(flowId) => handlePreviewFlow(flowId, 'flows')} />
+            <AutomatedFlowsManager onPreviewFlow={(flowId) => runFlow(flowId, 'flows')} />
           </TabsContent>
 
           <TabsContent value="backoffice">
-            <Backoffice onPreviewFlow={(flowId) => handlePreviewFlow(flowId, 'backoffice')} />
+            <Backoffice onPreviewFlow={(flowId) => runFlow(flowId, 'backoffice')} />
           </TabsContent>
         </Tabs>
 
         {/* Responsive Flow Runner Modal */}
         <FlowRunnerModal
           flowId={runningFlowId}
-          isOpen={!!runningFlowId}
-          onClose={handleCloseRunner}
-          onComplete={handleFlowComplete}
+          isOpen={isRunning}
+          onClose={closeRunner}
+          onComplete={handleComplete}
           enableDesignMode={flowExecutionContext === 'backoffice'}
         />
 
