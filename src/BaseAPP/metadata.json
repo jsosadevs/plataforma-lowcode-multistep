@@ -1,5 +1,0 @@
-{
-  "name": "Dynamic Flow Backoffice v6",
-  "description": "A backoffice module to dynamically create, manage, and execute multi-step process flows for data querying and document generation. Features a flow designer, a dynamic modal for user input, and a reactive filter-funnel logic.",
-  "requestFramePermissions": []
-}
